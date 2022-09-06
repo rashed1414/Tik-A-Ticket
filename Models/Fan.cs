@@ -14,5 +14,6 @@ namespace Tik_A_Ticket.Models
         public byte[]? PasswordHash { get; set; }
         public byte[]? PasswordSalt { get; set; }
         public DateTime? RegesteredDate { get; set; }
+        public Ticket? fanTicket { get; set; }
     }
 }

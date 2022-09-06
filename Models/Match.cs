@@ -13,6 +13,7 @@ namespace Tik_A_Ticket.Models
         public DateOnly? Date { get; set; } = new DateOnly();
         public TimeOnly? Time { get; set; } = new TimeOnly();
         public string? Stadium { get; set; }
-        
+        public List<Ticket> tickets { get; set; }
+
     }
 }
