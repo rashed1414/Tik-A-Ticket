@@ -8,12 +8,13 @@ namespace Tik_A_Ticket.Models
     public class Match
     {
         public int? Id { get; set; }
-        public string? HomeTeam { get; set; }
-        public string? AwayTeam { get; set; }
-        public DateOnly? Date { get; set; } = new DateOnly();
-        public TimeOnly? Time { get; set; } = new TimeOnly();
-        public string? Stadium { get; set; }
-        public List<Ticket> tickets { get; set; }
+        public Team? HomeTeam { get; set; }
+        public Team? AwayTeam { get; set; }
+        public DateTime Date { get; set; } =DateTime.Today;
+        public DateTime Time { get; set; } = DateTime.Now;
+        public List<Ticket>? Tickets { get; set; }
+        public Stadium? Stadium { get; set; }
+        ChampionShip? ChampionShip { get; set; }
 
     }
 }

@@ -12,7 +12,7 @@ namespace Tik_A_Ticket.Models
         public Match Match { get; set; }
         public PricingCategory Pricing { get; set; }
         public TicketType Type { get; set; } = TicketType.Regular;
-        public Seat SeatNo { get; set; }
+        public RegularSeat SeatNo { get; set; }= RegularSeat.A1;
         
 
 
