@@ -14,9 +14,9 @@ namespace Tik_A_Ticket.Models
         public byte[]? PasswordHash { get; set; }
         public byte[]? PasswordSalt { get; set; }
         public byte[]? ProfilePicture { get; set; }
-        public DateTime? RegesteredDate { get; set; }
+        public DateTime? RegesteredDate { get; set; }=DateTime.Now;
         public Ticket? FanTicket { get; set; }
         public Team[]? FanTeams { get; set; }
-        public Player FavoutritePlayer { get; set; }
+        public Player? FavoutritePlayer { get; set; }
     }
 }

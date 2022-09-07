@@ -1,8 +1,7 @@
-﻿namespace Tik_A_Ticket.Models;
+﻿namespace Tik_A_Ticket.DTO.TeamDTO;
 
-public class Team
+public class GetTeamDto
 {
-    public int Id { get; set; }
     public string? Name { get; set; }
     public string? Description { get; set; }
     public int LeagueOrder { get; set; }

@@ -1,5 +1,8 @@
+global using Tik_A_Ticket.DTO;
+
 global using Tik_A_Ticket.Models;
 using Microsoft.EntityFrameworkCore;
+
 using Tik_A_Ticket.Data;
 
 var builder = WebApplication.CreateBuilder(args);

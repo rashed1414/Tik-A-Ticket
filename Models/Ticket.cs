@@ -7,15 +7,12 @@ namespace Tik_A_Ticket.Models
 {
     public class Ticket
     {
-        public int TicketID { get; set; }
+        public int Id { get; set; }
         public long TicketNumber { get; set; }
-        public Match Match { get; set; }
-        public PricingCategory Pricing { get; set; }
-        public TicketType Type { get; set; } = TicketType.Regular;
-        public RegularSeat SeatNo { get; set; }= RegularSeat.A1;
+        public Match? Match { get; set; }
+        public PricingCategory? Pricing { get; set; }
+        public TicketType? Type { get; set; } = TicketType.Regular;
+        public RegularSeat? SeatNo { get; set; }= RegularSeat.A1;
         
-
-
-
     }
 }
