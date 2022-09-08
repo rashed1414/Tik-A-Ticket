@@ -1,6 +1,6 @@
 ﻿namespace Tik_A_Ticket.DTO.FanDTO;
 
-public class LogInFanDto
+public class LoginFanDto
 {
     public string? Email { get; set; }
     public string? Username { get; set; }

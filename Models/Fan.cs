@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,7 +9,8 @@ namespace Tik_A_Ticket.Models
 {
     public class Fan
     {
-        public long? FanId { get; set; }
+        public int Id { get; set; }
+        public long FanId { get; set; }
         public string? Name { get; set; }
         public string? Email { get; set; }
         public string? Username { get; set; }

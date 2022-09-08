@@ -12,7 +12,7 @@ using Tik_A_Ticket.Data;
 namespace Tik_A_Ticket.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220907124958_InitialCreate")]
+    [Migration("20220908105420_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,11 +48,9 @@ namespace Tik_A_Ticket.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -62,19 +60,22 @@ namespace Tik_A_Ticket.Migrations
 
             modelBuilder.Entity("Tik_A_Ticket.Models.Fan", b =>
                 {
-                    b.Property<long?>("FanId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("FanId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("FanTicketTicketID")
+                    b.Property<long?>("FanId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("FanTicketId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FavoutritePlayerId")
+                    b.Property<int?>("FavoutritePlayerId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -95,9 +96,9 @@ namespace Tik_A_Ticket.Migrations
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("FanId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("FanTicketTicketID");
+                    b.HasIndex("FanTicketId");
 
                     b.HasIndex("FavoutritePlayerId");
 
@@ -202,44 +203,34 @@ namespace Tik_A_Ticket.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Capacity")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long>("Capacity")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("State")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Website")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Zip")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Zip")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -257,8 +248,8 @@ namespace Tik_A_Ticket.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("FanId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("FanId")
+                        .HasColumnType("int");
 
                     b.Property<int>("LeagueOrder")
                         .HasColumnType("int");
@@ -275,28 +266,28 @@ namespace Tik_A_Ticket.Migrations
 
             modelBuilder.Entity("Tik_A_Ticket.Models.Ticket", b =>
                 {
-                    b.Property<int>("TicketID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TicketID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("MatchId")
+                    b.Property<int?>("MatchId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PricingId")
+                    b.Property<int?>("PricingId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SeatNo")
+                    b.Property<int?>("SeatNo")
                         .HasColumnType("int");
 
                     b.Property<long>("TicketNumber")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("Type")
+                    b.Property<int?>("Type")
                         .HasColumnType("int");
 
-                    b.HasKey("TicketID");
+                    b.HasKey("Id");
 
                     b.HasIndex("MatchId");
 
@@ -324,13 +315,11 @@ namespace Tik_A_Ticket.Migrations
                 {
                     b.HasOne("Tik_A_Ticket.Models.Ticket", "FanTicket")
                         .WithMany()
-                        .HasForeignKey("FanTicketTicketID");
+                        .HasForeignKey("FanTicketId");
 
                     b.HasOne("Tik_A_Ticket.Models.Player", "FavoutritePlayer")
                         .WithMany()
-                        .HasForeignKey("FavoutritePlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FavoutritePlayerId");
 
                     b.Navigation("FanTicket");
 
@@ -378,15 +367,11 @@ namespace Tik_A_Ticket.Migrations
                 {
                     b.HasOne("Tik_A_Ticket.Models.Match", "Match")
                         .WithMany("Tickets")
-                        .HasForeignKey("MatchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MatchId");
 
                     b.HasOne("Tik_A_Ticket.Models.PricingCategory", "Pricing")
                         .WithMany()
-                        .HasForeignKey("PricingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PricingId");
 
                     b.Navigation("Match");
 

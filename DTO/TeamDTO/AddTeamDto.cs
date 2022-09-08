@@ -7,4 +7,6 @@ public class AddTeamDto
     public int LeagueOrder { get; set; } 
     public List<Player>? Players { get; set; }
     public List<ChampionShip>? ChampionShips { get; set; }
+    public byte[]? Logo { get; set; }
+
 }

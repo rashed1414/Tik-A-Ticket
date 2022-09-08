@@ -15,8 +15,8 @@ namespace Tik_A_Ticket.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -43,16 +43,16 @@ namespace Tik_A_Ticket.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    State = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Zip = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Website = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Capacity = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Zip = table.Column<int>(type: "int", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Website = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Capacity = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -81,8 +81,9 @@ namespace Tik_A_Ticket.Migrations
                 name: "Fans",
                 columns: table => new
                 {
-                    FanId = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    FanId = table.Column<long>(type: "bigint", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -90,12 +91,12 @@ namespace Tik_A_Ticket.Migrations
                     PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     ProfilePicture = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     RegesteredDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    FanTicketTicketID = table.Column<int>(type: "int", nullable: true),
-                    FavoutritePlayerId = table.Column<int>(type: "int", nullable: false)
+                    FanTicketId = table.Column<int>(type: "int", nullable: true),
+                    FavoutritePlayerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Fans", x => x.FanId);
+                    table.PrimaryKey("PK_Fans", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -107,7 +108,7 @@ namespace Tik_A_Ticket.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LeagueOrder = table.Column<int>(type: "int", nullable: false),
-                    FanId = table.Column<long>(type: "bigint", nullable: true)
+                    FanId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -116,7 +117,7 @@ namespace Tik_A_Ticket.Migrations
                         name: "FK_Teams_Fans_FanId",
                         column: x => x.FanId,
                         principalTable: "Fans",
-                        principalColumn: "FanId");
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -179,29 +180,27 @@ namespace Tik_A_Ticket.Migrations
                 name: "Tickets",
                 columns: table => new
                 {
-                    TicketID = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TicketNumber = table.Column<long>(type: "bigint", nullable: false),
-                    MatchId = table.Column<int>(type: "int", nullable: false),
-                    PricingId = table.Column<int>(type: "int", nullable: false),
-                    Type = table.Column<int>(type: "int", nullable: false),
-                    SeatNo = table.Column<int>(type: "int", nullable: false)
+                    MatchId = table.Column<int>(type: "int", nullable: true),
+                    PricingId = table.Column<int>(type: "int", nullable: true),
+                    Type = table.Column<int>(type: "int", nullable: true),
+                    SeatNo = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tickets", x => x.TicketID);
+                    table.PrimaryKey("PK_Tickets", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Tickets_Matches_MatchId",
                         column: x => x.MatchId,
                         principalTable: "Matches",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Tickets_PricingCategories_PricingId",
                         column: x => x.PricingId,
                         principalTable: "PricingCategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -210,9 +209,9 @@ namespace Tik_A_Ticket.Migrations
                 column: "TeamsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Fans_FanTicketTicketID",
+                name: "IX_Fans_FanTicketId",
                 table: "Fans",
-                column: "FanTicketTicketID");
+                column: "FanTicketId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Fans_FavoutritePlayerId",
@@ -267,15 +266,14 @@ namespace Tik_A_Ticket.Migrations
                 table: "Fans",
                 column: "FavoutritePlayerId",
                 principalTable: "Players",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Fans_Tickets_FanTicketTicketID",
+                name: "FK_Fans_Tickets_FanTicketId",
                 table: "Fans",
-                column: "FanTicketTicketID",
+                column: "FanTicketId",
                 principalTable: "Tickets",
-                principalColumn: "TicketID");
+                principalColumn: "Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
